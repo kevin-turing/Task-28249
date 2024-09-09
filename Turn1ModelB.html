@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bollywood Embedded Advertising Impact</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      .container {
+        width: 80%;
+        margin: auto;
+        overflow: hidden;
+      }
+      .chart-container {
+        position: relative;
+        margin: auto;
+        height: 40vh;
+        width: 80vw;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Impact of Embedded Advertising in Bollywood</h1>
+
+      <!-- Financial Trends in Brand Partnerships -->
+      <h2>Financial Trends in Brand Partnerships</h2>
+      <div class="chart-container">
+        <canvas id="financialTrendsChart"></canvas>
+      </div>
+
+      <!-- Network Graph for Brand-Movie Connections -->
+      <h2>Brand-Movie Connections</h2>
+      <div id="networkGraph" style="width: 100%; height: 500px"></div>
+
+      <!-- Time Series Analysis -->
+      <h2>Growth in Embedded Advertising</h2>
+      <div class="chart-container">
+        <canvas id="timeSeriesChart"></canvas>
+      </div>
+
+      <!-- ROI Comparison -->
+      <h2>ROI Comparison: In-Film vs Out-of-Film Placements</h2>
+      <div class="chart-container">
+        <canvas id="roiChart"></canvas>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', (event) => {
+        // Financial Trends Data
+        const financialData = {
+          labels: ['In-Film Placement', 'Out-of-Film Association'],
+          datasets: [
+            {
+              label: 'Investment Range (in INR)',
+              backgroundColor: ['#3e95cd', '#8e5ea2'],
+              data: [1500000, 700000], // Starting points for ranges
+            },
+          ],
+        };
+
+        const financialTrendsChart = new Chart(
+          document.getElementById('financialTrendsChart').getContext('2d'),
+          {
+            type: 'bar',
+            data: financialData,
+            options: {
+              scales: {
+                yAxes: [
+                  {
+                    ticks: {
+                      beginAtZero: true,
+                      callback: function (value) {
+                        if (value % 1 === 0) {
+                          return value;
+                        }
+                      },
+                    },
+                  },
+                ],
+              },
+              title: {
+                display: true,
+                text: 'Investment Ranges for Advertising in Bollywood',
+              },
+            },
+          }
+        );
+
+        // Network Graph Data
+        var networkData = {
+          nodes: [
+            { id: 1, label: 'Tanishq', group: 'Jewellery' },
+            { id: 2, label: 'Padmaavat', group: 'Movie' },
+            { id: 3, label: 'Shaadi.com', group: 'Service' },
+            { id: 4, label: 'Zero', group: 'Movie' },
+            { id: 5, label: 'JBL', group: 'Audio' },
+            { id: 6, label: 'Gully Boy', group: 'Movie' },
+          ],
+          edges: [
+            { from: 1, to: 2 },
+            { from: 3, to: 4 },
+            { from: 5, to: 6 },
+          ],
+        };
+
+        var networkContainer = document.getElementById('networkGraph');
+        var network = new vis.Network(networkContainer, networkData, {});
+
+        // Time Series Data for Advertising Growth
+        const timeSeriesData = {
+          labels: ['2015', '2016', '2017', '2018'],
+          datasets: [
+            {
+              label: 'Embedded Ads Growth',
+              data: [10, 15, 18, 20], // Hypothetical growth percentages
+              borderColor: 'rgba(75, 192, 192, 1)',
+              fill: false,
+            },
+          ],
+        };
+
+        const timeSeriesChart = new Chart(
+          document.getElementById('timeSeriesChart').getContext('2d'),
+          {
+            type: 'line',
+            data: timeSeriesData,
+            options: {
+              title: {
+                display: true,
+                text: 'Growth in Embedded Advertising (%)',
+              },
+              scales: {
+                yAxes: [
+                  {
+                    ticks: {
+                      beginAtZero: true,
+                    },
+                  },
+                ],
+              },
+            },
+          }
+        );
+
+        // ROI Comparison Data
+        const roiData = {
+          labels: ['In-Film', 'Out-of-Film'],
+          datasets: [
+            {
+              label: 'ROI',
+              data: [5, 3], // Hypothetical ROI values
+              backgroundColor: ['#3cba9f', '#e8c3b9'],
+            },
+          ],
+        };
+
+        const roiChart = new Chart(
+          document.getElementById('roiChart').getContext('2d'),
+          {
+            type: 'doughnut',
+            data: roiData,
+            options: {
+              title: {
+                display: true,
+                text: 'ROI Comparison',
+              },
+            },
+          }
+        );
+      });
+    </script>
+  </body>
+</html>
