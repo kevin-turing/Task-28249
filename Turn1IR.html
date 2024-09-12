@@ -4,85 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bollywood Embedded Ads Impact</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vis-network@9.1.2/dist/vis-network.min.js"></script>
     <style>
-        body { 
-            font-family: 'Roboto', sans-serif; 
-            background-color: #f8f9fa;
-        }
-        .chart-container { 
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            margin-bottom: 30px;
-        }
-        #networkGraph { 
-            height: 500px; 
-            background-color: #ffffff;
-            border-radius: 8px;
-        }
-        h1, h2 {
-            color: #343a40;
-        }
-        .navbar-brand {
-            font-weight: bold;
-        }
+        body { font-family: Arial, sans-serif; }
+        .chart-container { width: 80%; margin: 20px auto; }
+        #networkGraph { height: 400px; border: 1px solid #ddd; }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
-        <div class="container">
-            <a class="navbar-brand" href="#">Bollywood Ads Impact</a>
-        </div>
-    </nav>
+    <h1>Impact of Embedded Advertising in Bollywood</h1>
 
-    <div class="container">
-        <h1 class="text-center mb-5">Impact of Embedded Advertising in Bollywood</h1>
-
-        <div class="row">
-            <div class="col-md-6 mb-4">
-                <div class="chart-container">
-                    <h2 class="h4 mb-3">Investment Ranges in Brand Partnerships</h2>
-                    <canvas id="investmentChart"></canvas>
-                </div>
-            </div>
-            <div class="col-md-6 mb-4">
-                <div class="chart-container">
-                    <h2 class="h4 mb-3">Brand-Movie Connections</h2>
-                    <div id="networkGraph"></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6 mb-4">
-                <div class="chart-container">
-                    <h2 class="h4 mb-3">Growth in Embedded Advertising</h2>
-                    <canvas id="growthChart"></canvas>
-                </div>
-            </div>
-            <div class="col-md-6 mb-4">
-                <div class="chart-container">
-                    <h2 class="h4 mb-3">ROI Comparison: In-Film vs Out-of-Film</h2>
-                    <canvas id="roiChart"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12 mb-4">
-                <div class="chart-container">
-                    <h2 class="h4 mb-3">Reach and Visibility Boost for Production Houses</h2>
-                    <canvas id="reachChart"></canvas>
-                </div>
-            </div>
-        </div>
+    <div class="chart-container">
+        <h2>Investment Ranges in Brand Partnerships</h2>
+        <canvas id="investmentChart"></canvas>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <div class="chart-container">
+        <h2>Brand-Movie Connections</h2>
+        <div id="networkGraph"></div>
+    </div>
+
+    <div class="chart-container">
+        <h2>Growth in Embedded Advertising</h2>
+        <p>Note: Specific data on the growth of embedded advertising over recent years is not available in the provided article.</p>
+    </div>
+
+    <div class="chart-container">
+        <h2>ROI Comparisons and Reach/Visibility Boost</h2>
+        <p>Note: The article doesn't provide specific data for ROI comparisons between in-film and out-of-film placements or quantitative data on reach and visibility boost for production houses.</p>
+    </div>
+
     <script>
         // Investment Ranges Chart
         const investmentCtx = document.getElementById('investmentChart').getContext('2d');
@@ -120,112 +72,23 @@
             {id: 2, label: 'Tanishq', group: 'brand'},
             {id: 3, label: 'Zero', group: 'movie'},
             {id: 4, label: 'Shaadi.com', group: 'brand'},
-            {id: 5, label: 'Gully Boy', group: 'movie'},
-            {id: 6, label: 'JBL', group: 'brand'}
+            {id: 5, label: 'Jab Harry Met Sejal', group: 'movie'},
+            {id: 6, label: 'Badrinath ki Dulhania', group: 'movie'},
+            {id: 7, label: 'Gully Boy', group: 'movie'},
+            {id: 8, label: 'JBL', group: 'brand'}
         ]);
         const edges = new vis.DataSet([
-            {from: 1, to: 2},
-            {from: 3, to: 4},
-            {from: 5, to: 6}
+            {from: 1, to: 2, label: 'In-film'},
+            {from: 3, to: 4, label: 'In-film'},
+            {from: 5, to: 4, label: 'Out-of-film'},
+            {from: 6, to: 4, label: 'Out-of-film'},
+            {from: 7, to: 8, label: 'In-film'}
         ]);
         const container = document.getElementById('networkGraph');
         new vis.Network(container, {nodes, edges}, {
             groups: {
                 movie: {color: {background: '#3498db', border: '#2980b9'}},
                 brand: {color: {background: '#e74c3c', border: '#c0392b'}}
-            },
-            physics: {
-                stabilization: false,
-                barnesHut: {
-                    gravitationalConstant: -2000,
-                    springConstant: 0.001,
-                    springLength: 200
-                }
-            }
-        });
-
-        // Growth Chart
-        const growthCtx = document.getElementById('growthChart').getContext('2d');
-        new Chart(growthCtx, {
-            type: 'line',
-            data: {
-                labels: ['2015', '2016', '2017', '2018', '2019'],
-                datasets: [{
-                    label: 'Number of Embedded Ads',
-                    data: [100, 150, 200, 280, 350],
-                    borderColor: 'rgb(75, 192, 192)',
-                    backgroundColor: 'rgba(75, 192, 192, 0.1)',
-                    tension: 0.1,
-                    fill: true
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Number of Ads'
-                        }
-                    }
-                }
-            }
-        });
-
-        // ROI Comparison Chart
-        const roiCtx = document.getElementById('roiChart').getContext('2d');
-        new Chart(roiCtx, {
-            type: 'doughnut',
-            data: {
-                labels: ['In-film Placement', 'Out-of-film Placement'],
-                datasets: [{
-                    data: [60, 40],
-                    backgroundColor: ['rgba(255, 99, 132, 0.8)', 'rgba(54, 162, 235, 0.8)']
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                    },
-                    title: {
-                        display: true,
-                        text: 'ROI Distribution'
-                    }
-                }
-            }
-        });
-
-        // Reach and Visibility Chart
-        const reachCtx = document.getElementById('reachChart').getContext('2d');
-        new Chart(reachCtx, {
-            type: 'bar',
-            data: {
-                labels: ['TV', 'Radio', 'OOH', 'Social Media'],
-                datasets: [{
-                    label: 'Reach (in millions)',
-                    data: [50, 30, 20, 60],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.6)',
-                        'rgba(54, 162, 235, 0.6)',
-                        'rgba(255, 206, 86, 0.6)',
-                        'rgba(75, 192, 192, 0.6)'
-                    ]
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Reach (in millions)'
-                        }
-                    }
-                }
             }
         });
     </script>
